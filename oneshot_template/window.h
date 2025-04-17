@@ -41,7 +41,6 @@ private:
     bool FadeWindowOut = false; // fades the window out (Windows only)
     bool FadeOutNotSupportedMessagePrinted = false;
     bool WindowOpacityNotSupportedMessagePrinted = false;
-    bool FadeOutCalled = false;
     float FrameTime = 0.0f; // save deltatime before calling Windows Popup to make sure fading out won't be so incredibly fast
 
     void fullScreen() {
@@ -123,7 +122,6 @@ public:
     }
 
     void FadeOut(float fadingSpeed = 3) { // fades the window out
-        FadeOutCalled = true; // makes sure that this is atleast called once to prevent window from not closing because it isn't called in the code
         if(FadeWindowOut) {
             if(opacity < 0) {
                 opacity = 0;
@@ -218,8 +216,9 @@ public:
             fullScreen(); // these two are called to exit fullscreen
             BorderlessWindowed();
             
-            if(fadeoutWhenClose && FadeOutCalled && !LetCloseWithoutFadeout) { // if fade out is enabled it fades out the window
+            if(fadeoutWhenClose && !LetCloseWithoutFadeout) { // if fade out is enabled it fades out the window
                 FadeWindowOut = true;
+                FadeOut();
             } else { // other wise says yes window faded out letting the game close
                 WindowFadedOut = true;
             }
