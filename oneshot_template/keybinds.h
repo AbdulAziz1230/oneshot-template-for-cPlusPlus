@@ -15,10 +15,6 @@ struct {
     int RightRUNKey = KEY_RIGHT_SHIFT;
     // Hotkeys
     int FullScreenHotKey = KEY_F8;
-
-    // debug
-    int ChangeMovementType = KEY_TAB;
-    int ToggleAutoRun = KEY_C;
 } Keybinds;
 
 #endif

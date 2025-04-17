@@ -107,6 +107,7 @@ public:
     std::vector<std::string> FirstQuitDialogue = {"This action will record your progress in this world.", "To return to this world again, you need to relaunch the application.", "Proceed?"};
     std::vector<std::string> QuitDialogue = {"Quit and record your progress?"};
     std::vector<std::string> QuitDuringCutscneDialogue = {"You cannot perform this action during cutscenes."};
+    float fadeOutSpeed = 3;
 
 #ifdef _WIN32 // checks if current platform is window
     void WindowOpacity(float alpha) { // i don't understand this code but it changes opacity with float alpha
@@ -121,7 +122,8 @@ public:
         SetLayeredWindowAttributes(hwnd, 0, alphabyte, LWA_ALPHA);
     }
 
-    void FadeOut(float fadingSpeed = 3) { // fades the window out
+    void FadeOut(float fadingSpeed = 0) { // fades the window out
+        fadingSpeed = fadeOutSpeed;
         if(FadeWindowOut) {
             if(opacity < 0) {
                 opacity = 0;

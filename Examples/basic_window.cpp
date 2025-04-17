@@ -7,6 +7,7 @@
 #include "oneshot_template/oneshot.h"
 
 int main()
+
 {
     const int display_width = OneshotWindowWidth;
     const int display_height = OneshotWindowHeight;

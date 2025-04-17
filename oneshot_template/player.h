@@ -179,7 +179,7 @@ public:
     float Runspeed = 200;
     float speed = Walkspeed;
     float horizontal = 0.0f; // controls if player goes right or left by -1(left) and 1(right)
-    float vertical = 0.0f; // controls if player goes right or left by -1(up) and 1(down)
+    float vertical = 0.0f; // controls if player goes up or down by -1(up) and 1(down)
     bool AutoRun = false;
     std::list<std::string> MovementDirection; // list of directions to move for oneshot movement
     std::vector<std::string> AnimationStateNames = {"IdleUp", "IdleDown", "IdleLeft", "IdleRight", "WalkingUp", "WalkingDown", "WalkingLeft", "WalkingRight"};
