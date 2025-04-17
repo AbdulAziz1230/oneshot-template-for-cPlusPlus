@@ -58,7 +58,7 @@ int main()
 
         BeginDrawing();
             ClearBackground(BLACK);
-            player.Draw(NikoSprite, {0, 0}, NikoRectangle);
+            player.Draw(NikoSprite, NikoRectangle, {0, 0});
         EndDrawing();
     }
 

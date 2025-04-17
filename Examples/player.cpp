@@ -32,7 +32,7 @@ int main()
 
         BeginDrawing();
             ClearBackground(BLACK);
-            player.Draw(NikoSprite, {0, 0});
+            player.Draw(NikoSprite);
         EndDrawing();
     }
 

@@ -223,7 +223,7 @@ public:
         AnimationStateUpdate();
     }
 
-    void Draw(Texture2D Texture, Texture2D lightmap = { 0, 0 }, Rectangle rectangle = {0, 0, 0, 0}) {
+    void Draw(Texture2D Texture, Rectangle rectangle = {0, 0, 0, 0}, Texture2D lightmap = { 0, 0 }) {
         // the first two zeros are position of the texture | edit this comment here later
         Rectangle rectangleDraw = rectangle; // changes rectangle to given rectangle allowing animator to animate spritesheets
         if(rectangle.width == 0 && rectangle.height == 0) {
