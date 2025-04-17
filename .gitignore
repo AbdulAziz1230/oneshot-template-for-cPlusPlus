@@ -1,0 +1,7 @@
+.vscode
+Assets
+include
+lib
+controller binds.txt
+main.exe
+main.cpp
