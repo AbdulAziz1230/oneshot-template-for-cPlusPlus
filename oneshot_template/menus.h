@@ -1,5 +1,5 @@
 #ifndef MENUS_H
-#define MENUSX_H
+#define MENUS_H
 
 #include<string>
 #include<array>
