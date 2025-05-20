@@ -26,8 +26,8 @@
 #include<iostream>
 #endif
 
-int OneshotWindowWidth = 640; // width matches oneshot width that winspy says
-int OneshotWindowHeight = 484; // height is off by 4 but porbably winspy doesn't count the border
+int OneshotWindowWidth = 640; // Width that matches Oneshot window.
+int OneshotWindowHeight = 484; // Height that matches Oneshot window.
 // these sizes are by me comparing and guessing and winspy was a test to see if it's accurate
 
 class Window {
@@ -41,7 +41,9 @@ private:
     bool FadeWindowOut = false; // fades the window out (Windows only)
     bool FadeOutNotSupportedMessagePrinted = false;
     bool WindowOpacityNotSupportedMessagePrinted = false;
+    bool PopUpNotSupportedMessagePrinted = false;
     float FrameTime = 0.0f; // save deltatime before calling Windows Popup to make sure fading out won't be so incredibly fast
+    bool fullscreen = false;
 
     void fullScreen() {
         if(fullscreen) { 
@@ -96,30 +98,13 @@ private:
             MessageBox(QuitDuringCutscneDialogue[i].c_str(), "", WinIcons.Information, WinButtons.Ok);
         }
     }
-#endif
 
-public:
-    bool fullscreen = false;
-    bool fullscreenOnBeing = false; // whether it fullscreens when game is launched or not
-    bool borderlessFullscreen = true; // whether it fullscreens on borderless window mode or acutal fullscreen
-    bool LetCloseWithoutFadeout = false; // used for other platforms that aren't windows to let the game close without the fade out
-    bool FirstQuitDialogueShowed = false; // whether it's the first time the X button is pressed or not
-    std::vector<std::string> FirstQuitDialogue = {"This action will record your progress in this world.", "To return to this world again, you need to relaunch the application.", "Proceed?"};
-    std::vector<std::string> QuitDialogue = {"Quit and record your progress?"};
-    std::vector<std::string> QuitDuringCutscneDialogue = {"You cannot perform this action during cutscenes."};
-    float fadeOutSpeed = 3;
-
-#ifdef _WIN32 // checks if current platform is window
-    void WindowOpacity(float alpha) { // i don't understand this code but it changes opacity with float alpha
-        HWND hwnd = (HWND)GetWindowHandle();
-        LONG style = GetWindowLong(hwnd, GWL_EXSTYLE);
-
-        if(!(style & WS_EX_LAYERED)) {
-            SetWindowLong(hwnd, GWL_EXSTYLE, style | WS_EX_LAYERED);
-        }
-
-        BYTE alphabyte = (BYTE)(alpha * 255);
-        SetLayeredWindowAttributes(hwnd, 0, alphabyte, LWA_ALPHA);
+    std::wstring ToUTF16(std::string utf8) {
+        int size = MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, nullptr, 0);
+        std::wstring wstr(size, 0);
+        MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, &wstr[0], size);
+        wstr.pop_back();
+        return wstr;
     }
 
     void FadeOut(float fadingSpeed = 0) { // fades the window out
@@ -141,6 +126,41 @@ public:
         }
 
     }
+
+#else
+    void FadeOut() {
+        // checks if message is printed before or not, if it wasn't ir prints it.
+        if(!FadeOutNotSupportedMessagePrinted) {
+            std::cout << "WindowOpacity: FadeOut is Windows only due to using windows.h, sorry this void won't work on your machine." << std::endl;
+            FadeOutNotSupportedMessagePrinted = true;
+        }
+
+        WindowFadedOut = true; //  makes WindowFadedOut true to not softlock the player
+    }
+#endif
+
+public:
+    bool fullscreenOnBeing = false; // whether it fullscreens when game is launched or not
+    bool borderlessFullscreen = false; // whether it fullscreens on borderless window mode or acutal fullscreen
+    bool LetCloseWithoutFadeout = false; // used for other platforms that aren't windows to let the game close without the fade out
+    bool FirstQuitDialogueShowed = false; // whether it's the first time the X button is pressed or not
+    std::vector<std::string> FirstQuitDialogue = {"This action will record your progress in this world.", "To return to this world again, you need to relaunch the application.", "Proceed?"};
+    std::vector<std::string> QuitDialogue = {"Quit and record your progress?"};
+    std::vector<std::string> QuitDuringCutscneDialogue = {"You cannot perform this action during cutscenes."};
+    float fadeOutSpeed = 3;
+
+#ifdef _WIN32 // checks if current platform is window
+    void WindowOpacity(float alpha) { // i don't understand this code but it changes opacity with float alpha
+        HWND hwnd = (HWND)GetWindowHandle();
+        LONG style = GetWindowLong(hwnd, GWL_EXSTYLE);
+
+        if(!(style & WS_EX_LAYERED)) {
+            SetWindowLong(hwnd, GWL_EXSTYLE, style | WS_EX_LAYERED);
+        }
+
+        BYTE alphabyte = (BYTE)(alpha * 255);
+        SetLayeredWindowAttributes(hwnd, 0, alphabyte, LWA_ALPHA);
+    }
     
     struct { // trying to make it simpler to find icons
         // you can find more icons on MB_ICON (that sounded like "you can find more icons on our website "https://WinIcons.scam" vist us today!" Lol)
@@ -161,7 +181,9 @@ public:
     } WinButtons;
 
     int MessageBox(std::string Content, std::string Caption, UINT icon, UINT buttonsType) { // trying to make it easier to find the MessageBox aka Windows Popup
-        return MessageBoxA(NULL, Content.c_str(), Caption.c_str(), icon | buttonsType); // calls windows pop up
+        std::wstring caption = ToUTF16(Caption);
+        std::wstring content = ToUTF16(Content);
+        return MessageBoxW(NULL, content.c_str(), caption.c_str(), icon | buttonsType); // calls windows pop up
     }
     
 #else // otherwise if platform isn't windows
@@ -173,14 +195,28 @@ public:
         }
     }
 
-    void FadeOut() {
-        // checks if message is printed before or not, if it wasn't ir prints it.
-        if(!FadeOutNotSupportedMessagePrinted) {
-            std::cout << "WindowOpacity: FadeOut is Windows only due to using windows.h, sorry this void won't work on your machine." << std::endl;
-            FadeOutNotSupportedMessagePrinted = true;
-        }
+    // Just here to not break the code for Linux.
 
-        WindowFadedOut = true; //  makes WindowFadedOut true to not softlock the player
+    struct {
+        int Information = 0;
+        int Warning = 0;
+        int Error = 0;
+        int Question = 0;
+    } WinIcons;
+
+    struct  {
+        int Ok = 0;
+        int OkCancel = 0;
+        int RetryCancel = 0;
+        int YesNo = 0;
+    } WinButtons;
+
+    int MessageBox(std::string Content, std::string Caption, UINT icon, UINT buttonsType) { // trying to make it easier to find the MessageBox aka Windows Popup
+        // checks if message is printed before or not, if it wasn't ir prints it.
+        if(!PopUpNotSupportedMessagePrinted) {
+            std::cout << "PopUps are Windows only due to using windows.h, sorry this void won't work on your machine." << std::endl;
+            PopUpNotSupportedMessagePrinted = true;
+        }
     }
 #endif
     

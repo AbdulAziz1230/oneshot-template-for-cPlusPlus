@@ -200,15 +200,11 @@ public:
         pivot[1] = y;
     }
 
-    void Start(Texture2D texture = {0, 0}, bool SetPostitonToCenter = true) {
+    void Start(Texture2D texture = {0, 0}) {
         // usually width and height is started as zero, this fixes it.
         if(texture.id != 0) { // if texture isn't empty aka there is a texture, this changes size
             scale[0] = texture.width;
             scale[1] = texture.height;
-        }
-        if(SetPostitonToCenter) {
-            position[0] = GetScreenWidth() / 2;
-            position[1] = GetScreenHeight() / 2;
         }
     }
 

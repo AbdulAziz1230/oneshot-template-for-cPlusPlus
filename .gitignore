@@ -2,6 +2,7 @@
 Assets
 include
 lib
-controller binds.txt
 main.exe
 main.cpp
+build.bat
+Makefile

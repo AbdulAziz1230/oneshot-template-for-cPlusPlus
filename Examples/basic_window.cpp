@@ -1,23 +1,20 @@
-// this is not a tutorial, just an example code. read README.md to know what is going on here and why there's 4 booleans and {} for window.Should close
-// and what does what too
+// This is the example code of how to make a basic window with Oneshot template.
+// Please refer to the README.md to understand what is this.
 
-
-#include<iostream>
 #include "include/raylib.h"
-#include "oneshot_template/oneshot.h"
+#include "oneshot_template/Oneshot.h"
 
-int main()
+using namespace OneshotTemplate;
 
-{
+int main() {
     const int display_width = OneshotWindowWidth;
     const int display_height = OneshotWindowHeight;
 
-    InitWindow(display_width, display_height, "Oneshot template - basic boring window Example");
+    InitWindow(display_width, display_height, "Oneshot template - Basic window example");
 
     SetTargetFPS(60);
 
-    SetExitKey(KEY_NULL); // optional but oneshot didn't have any key as exit
-    Window window;
+    SetExitKey(KEY_NULL);
 
     while(!window.ShouldClose(false, {}, true, true, true)) {
         window.HotKeys();

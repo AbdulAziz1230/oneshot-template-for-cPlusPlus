@@ -2,15 +2,16 @@
 #define ONESHOT_H
 
 #include "../include/raylib.h"
-#include "player.h"
-#include "animator.h"
-#include "window.h"
-#include "keybinds.h"
-#include "menus.h"
+#include "Player.h"
+#include "Animator.h"
+#include "Window.h"
+#include "Keybinds.h"
+#include "Menus.h"
+#include "Os.h"
 
 // combines all classes here to make it only one include to include all headers
 
-class window;
+class Window;
 
 class Player;
 
@@ -18,5 +19,13 @@ class Animator;
 
 class Menus;
 
+class OS;
+
+namespace OneshotTemplate {
+    Window window;
+    Player player;
+    Animator animator;
+    Menus menus;
+};
 
 #endif

@@ -1,32 +1,29 @@
-// this is not a tutorial, just an example code. read README.md to know what is going on here and why there's 4 booleans and {} for window.Should close
+// This is the example code of animation for the player with Oneshot template.
+// Please refer to the README.md to understand what is this.
 
-
-#include<iostream>
 #include "include/raylib.h"
-#include "oneshot_template/oneshot.h"
+#include "oneshot_template/Oneshot.h"
+
+using namespace OneshotTemplate;
 
 int main()
 {
     const int display_width = OneshotWindowWidth;
     const int display_height = OneshotWindowHeight;
 
-    InitWindow(display_width, display_height, "Oneshot template - Player with animations Example");
+    InitWindow(display_width, display_height, "Oneshot template - Animations for the player example");
 
     SetTargetFPS(60);
 
     SetExitKey(KEY_NULL); // optional but oneshot didn't have any key as exit
 
-    Window window;
-    Player player;
-    Animator animator;
     Animation playerAnim;
 
-    Texture NikoSprite = LoadTexture("spritesheet_path");
+    Texture NikoSprite = LoadTexture("spritesheet.png");
 
     player.Start(NikoSprite);
 
     player.SetScale(55, 70);
-    // optional but player.SetPosition(PosX, PosY);
 
     // compatible with Niko spritesheet
     playerAnim.States = std::unordered_map<std::string, std::array<int, 2>> { // basically in niko image it splits in cols and raws, these are where to begin in frame and where to end

@@ -1,30 +1,27 @@
-// this is not a tutorial, just an example code. read README.md to know what is going on here and why there's 4 booleans and {} for window.Should close
+// This is the example code of how to make a player with Oneshot template.
+// Please refer to the README.md to understand what is this.
 
-
-#include<iostream>
 #include "include/raylib.h"
-#include "oneshot_template/oneshot.h"
+#include "oneshot_template/Oneshot.h"
+
+using namespace OneshotTemplate;
 
 int main()
 {
     const int display_width = OneshotWindowWidth;
     const int display_height = OneshotWindowHeight;
 
-    InitWindow(display_width, display_height, "Oneshot template - Player Example");
+    InitWindow(display_width, display_height, "Oneshot template - Player example");
 
     SetTargetFPS(60);
 
-    SetExitKey(KEY_NULL); // optional but oneshot didn't have any key as exit
+    SetExitKey(KEY_NULL);
 
-    Window window;
-    Player player;
+    Texture NikoSprite = LoadTexture("Sprite.png");
 
-    Texture NikoSprite = LoadTexture("00_niko.png");
+    player.Start(NikoSprite); // Optionally you can use player.SetScale(Width, Height); to set the size to a specfic size.
 
-    player.Start(NikoSprite);
-
-    // or player.SetScale(Width, Height);
-    // optional but player.SetPosition(PosX, PosY);
+    // If the player position incorrect you can use player.SetPosition(PosX, PosY);
 
     while(!window.ShouldClose(false, {}, true, true, true)) {
         window.HotKeys();
