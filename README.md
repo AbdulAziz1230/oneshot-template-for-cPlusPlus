@@ -41,6 +41,9 @@ You can test using examples in the Example folder to see how it would work or yo
 And all keys are rebindable in `Keybinds.h`
 
 ## raylib
+Raylib must be installed to use this template as it is built for raylib, [You can get Raylib here](https://www.raylib.com/), you are expected to know how to use Raylib here.
+
+
 raylib.h is suppose to be in a include folder, otherwise you might have to change the path in most of those files.
 
 The reason is oneshot_template tries to go back a folder then go to include folder and get the raylib.h
