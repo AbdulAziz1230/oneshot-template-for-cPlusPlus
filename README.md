@@ -48,17 +48,17 @@ The reason is oneshot_template tries to go back a folder then go to include fold
 ## Table of contents
 [Settting up Oneshot Template in code.](#settting-up-oneshot-template-in-code)
 
-[Keybinds](#keybinds)
+[Keybinds.](#keybinds)
 
 [Basic window.](#basic-window)
 
-[Adding the player](#adding-the-player)
+[Adding the player.](#adding-the-player)
 
-[The animator](#the-animator)
+[The animator.](#the-animator)
 
-[Os](#os)
+[Os.](#os)
 
-[The end](#the-end)
+[The end.](#the-end)
 
 The vars and voids of.
 
