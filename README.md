@@ -1,3 +1,6 @@
+## Update.
+I don't think I'll be working on this anymore and I kinda regerted making this public this is why this repo went private and the reddit post got deleted but I guess I'll put it back up. 
+
 ## What's new?
 README.md got a rewrite to make it bearable to look at. I hate the old README.md.(Yes this is the reason why most of the new stuff here are unfinished)
 
